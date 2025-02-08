@@ -5,10 +5,12 @@ The starter project defines a simple `/ping` resource that can accept `GET` requ
 
 The project folder also includes a `template.yml` file. You can use this [SAM](https://github.com/awslabs/serverless-application-model) file to deploy the project to AWS Lambda and Amazon API Gateway or test in local with the [SAM CLI](https://github.com/awslabs/aws-sam-cli). 
 
+Libraries are skipped from upload to git, use **'POM.XML'** or **'Compressed Zip/Jar file'** in target folder to test the service.
+
 ## Pre-requisites
 * [AWS CLI](https://aws.amazon.com/cli/)
 * [SAM CLI](https://github.com/awslabs/aws-sam-cli)
-* [Gradle](https://gradle.org/) or [Maven](https://maven.apache.org/)
+* [Maven](https://maven.apache.org/)
 
 ##Pre-requisites to run the project locally
 - Java (JDK + IDE)
@@ -17,6 +19,16 @@ The project folder also includes a `template.yml` file. You can use this [SAM](h
 
 
 ## Building the project
+
+**(Recommended)** 
+
+  - Manually change API link in the code (Application.java) to extract data from desired API.                                                   
+  - Use Compressed Zip/Jar file with name 'apiservice-0.0.1-SNAPSHOT-lambda-package' to test the service.
+  - Go to AWS Lambda , choose runtime as Java-21 and upload the zip file to Code section.
+  -  Update runtime settings, enter handler as 'com.niine.serverless.apiservice.StreamLambdaHandler::handleRequest'
+  -  Increase timeout settings to allow for service to extract data successfully.
+
+
 You can use the SAM CLI to quickly build the project
 ```bash
 $ mvn archetype:generate -DartifactId=apiservice -DarchetypeGroupId=com.amazonaws.serverless.archetypes -DarchetypeArtifactId=aws-serverless-jersey-archetype -DarchetypeVersion=2.0.3 -DgroupId=com.niine.serverless -Dversion=0.0.1-SNAPSHOT -Dinteractive=false
